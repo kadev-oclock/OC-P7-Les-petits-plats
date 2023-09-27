@@ -35,5 +35,5 @@ un schéma, ou "algorigramme" sera réalisé pour chaque fonctionnalité de rech
 
 ## Compétences évaluées
 
-- Développer un algorithme pour résoudre un problème
-- Analyser un problème informatique
+- Développer un algorithme de recherche 
+- Analyser différent algo 
