@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+img {
+  width: 100%;
+}
+
+body {
+  width: 1440px;
+  height: auto;
+  background-color: #ededed !important;
+  margin: auto !important;
+}
+
+main {
+  width: 1140px;
+  margin: 0 102px 0 102px;
+}
+/* ============================== variable ===================================*/
+
+:root {
+  --text-grey: #7A7A7A;
+  --text-familly:'Manrope', sans-serif;
+  --text-title:'Anton', sans-serif;
+}
+
+/* =================================================================*/
+
+.hero {
+  background-image: url("/assets/image/hero.png");
+  background-repeat: no-repeat;
+  width: 1440px;
+  height: 700px;
+}
+
+.hero__logo {
+  background-image: url("/assets/icone/logo.svg");
+  background-repeat: no-repeat;
+  width: 210px;
+  height: 25px;
+ 
+}
+.hero__circle {
+  background-image: url("/assets/icone/circle.svg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 20px;
+}
+.hero__contain {
+   margin: 10px 0 0 50px;
+   display: flex;
+   flex-direction: row;
+}
+
+.hero__title {
+  color: #FFD15B;
+  font-family: 'Anton', sans-serif;
+  text-align: justify;
+  top: 194px;
+  right: 390px;
+}
+
+.hero__icon {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  padding: 12px;
+  background-color: #1B1B1B;
+}
+
+.hero__title p {
+  font-size: 2.5rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.hero__title-element {
+  font-size: 2.8rem;
+  font-weight: 400;
+}
+
+.search-container {
+  position: relative;
+  
+}
+
+.form-control {
+  padding: 1rem 2rem !important;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.form-control::placeholder {
+  color: #7A7A7A !important;
+}
+
+.search__icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: #1B1B1B;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.search__icon:hover {
+background-color: #FFD15B;
+} 
+
+.search__icon svg:hover {
+  color: #000000;
+}
+
+#dropdownMenuButton3,
+#dropdownMenuButton2,
+#dropdownMenuButton1{
+  background-color: #fff ;
+  color: #1B1B1B;
+  border: none;
+  font-family: var(--text-familly);
+  font-weight: 500; 
+}
+
+.dropdown__title {
+  font-family:var(--text-title);
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.card-img-top {
+  width: 380px !important;
+  height: 253px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 21px 21px 0 0   !important;
+}
+
+.card {
+  width: 23.8rem !important;
+  border-radius: 21px   !important;
+  background: #FFF  !important;
+  box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04)  !important;
+  overflow: hidden;
+}
+
+.card__contain {
+
+}
