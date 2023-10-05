@@ -8,6 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <link
       href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
@@ -21,7 +26,7 @@
     <title>Les petits plats</title>
   </head>
   <body>
-    <header class="hero">
+    <header class="container-fluid hero">
       <div class="pt-5">
         <div class="hero__contain">
           <div class="hero__logo"></div>
@@ -64,48 +69,11 @@
         </div>
       </div>
     </header>
-
     <main>
       <section>
-        <div class="container-fluid d-flex">
-          <div class="row col-md-8">
-            <div class="dropdown col-2 me-5">
-              <button
-                class="btn btn-secondary custom__btn dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                ingrédients
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
-            <div class="dropdown col-2 me-5">
-              <button
-                class="btn btn-secondary custom__btn dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Appareils
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
-            <div class="dropdown col-2 me-5">
+        <div class="container-fluid">
+          <div class="d-flex justify-content-between">
+            <div class="dropdown">
               <button
                 class="btn btn-secondary custom__btn dropdown-toggle"
                 type="button"
@@ -116,55 +84,82 @@
                 Ustensibles
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <form class="dropdown-item p-2">
+                    <div class="input-group">
+                      <input type="text" class=" search form-control" placeholder="Search.." name="search">
+                      <button type="submit" aria-label="Search" class="btn btn-outline-secondary icon-button">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </form>
+                </li>
                 <li><a class="dropdown-item" href="#">Action</a></li>
                 <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
             </div>
-          </div>
-          <div class="dropdown__title col-md-6 text-end">
-            <h2>1500 recettes</h2>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary custom__btn dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Ustensibles
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <form class="dropdown-item p-2">
+                    <div class="input-group">
+                      <input type="text" class=" search form-control" placeholder="Search.." name="search">
+                      <button type="submit" aria-label="Search" class="btn btn-outline-secondary icon-button">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </form>
+                </li>
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary custom__btn dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Ustensibles
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <form class="dropdown-item p-2">
+                    <div class="input-group">
+                      <input type="text" class=" search form-control" placeholder="Search.." name="search">
+                      <button type="submit" aria-label="Search" class="btn btn-outline-secondary icon-button">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </form>
+                </li>
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </div>
+            
+            <div class="dropdown__title ms-5">
+              <h2>1500 recettes</h2>
+            </div>
           </div>
         </div>
       </section>
       <section>
-        <div class="container-fluid mt-5">
-          <div id="card__custom" class="card mb-3 mr-3">
-            <img
-              src="./assets/image/Recette01-min.jpg"
-              class="card-img-top"
-              alt="Votre Image"
-            />
-            <div class="card_contain p-2">
-              <h5 class="card-title">Card title</h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary">
-                Card subtitle
-              </h6>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <div class="card__info row text-center">
-                <div class="card__element1 col-md-6">
-                  <p>poulet</p>
-                  <p>1</p>
-                  <p>coulis tomate</p>
-                  <p>25cl</p>
-                  <p>poivron rouge</p>
-                  <p>1</p>
-                </div>
-                <div class="card__element2 col-md-6">
-                  <p>jus citron</p>
-                  <p>2</p>
-                  <p>sucre</p>
-                  <p>25g</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="card__section" class="container-fluid mt-5"></div>
       </section>
     </main>
     <script
@@ -173,5 +168,6 @@
       crossorigin="anonymous"
     ></script>
     <script type="module" src="js/index.js"></script>
+    <script src="js/card.js"></script>
   </body>
 </html>
