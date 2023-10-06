@@ -117,6 +117,12 @@ main {
   color: #000000;
 }
 
+.icon {
+  position: absolute;
+    top: 26px;
+    right: 22px;
+}
+
 .search {
   width: 100%;
   padding: 8px 16px !important;
@@ -127,9 +133,16 @@ main {
   padding: 10px 15px;
 }
 
-#dropdownMenuButton3,
-#dropdownMenuButton2,
-#dropdownMenuButton1 {
+#dropdown__contain {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+}
+
+#ingredients,
+#ustensils,
+#appliance {
   background-color: #fff;
   color: #1b1b1b;
   border: none;
@@ -145,6 +158,13 @@ main {
   font-family: var(--text-title);
   font-size: 2rem;
   font-weight: 400;
+}
+
+.div_items {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 200px;
+  width:200px;
 }
 
 .card-img-top {

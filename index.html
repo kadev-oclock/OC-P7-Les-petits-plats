@@ -26,6 +26,7 @@
     <title>Les petits plats</title>
   </head>
   <body>
+    <!-- section backgound-header et barre de recherche  -->
     <header class="container-fluid hero">
       <div class="pt-5">
         <div class="hero__contain">
@@ -40,6 +41,7 @@
             <p>DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES</p>
             <div class="search-container">
               <input
+                id="input_search"
                 type="text"
                 class="form-control"
                 placeholder="Rechercher une recette, un ingrédient, ..."
@@ -70,88 +72,15 @@
       </div>
     </header>
     <main>
+      <!-- section filtre -->
       <section>
         <div class="container-fluid">
-          <div class="d-flex justify-content-between">
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary custom__btn dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton3"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Ustensibles
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li>
-                  <form class="dropdown-item p-2">
-                    <div class="input-group">
-                      <input type="text" class=" search form-control" placeholder="Search.." name="search">
-                      <button type="submit" aria-label="Search" class="btn btn-outline-secondary icon-button">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </form>
-                </li>
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
+          <div id="div_filter" class="d-flex justify-content-center">
+            <div id="dropdown__contain" class="d-flex mr-3 justify-content-around">
+              <!-- filtre des ingrédients -->
+              <!-- filtre des Appareils -->
+              <!-- filtre des ustenciles -->
             </div>
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary custom__btn dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Ustensibles
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li>
-                  <form class="dropdown-item p-2">
-                    <div class="input-group">
-                      <input type="text" class=" search form-control" placeholder="Search.." name="search">
-                      <button type="submit" aria-label="Search" class="btn btn-outline-secondary icon-button">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </form>
-                </li>
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </div>
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary custom__btn dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Ustensibles
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li>
-                  <form class="dropdown-item p-2">
-                    <div class="input-group">
-                      <input type="text" class=" search form-control" placeholder="Search.." name="search">
-                      <button type="submit" aria-label="Search" class="btn btn-outline-secondary icon-button">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </form>
-                </li>
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </div>
-            
             <div class="dropdown__title ms-5">
               <h2>1500 recettes</h2>
             </div>
@@ -168,6 +97,6 @@
       crossorigin="anonymous"
     ></script>
     <script type="module" src="js/index.js"></script>
-    <script src="js/card.js"></script>
+
   </body>
 </html>

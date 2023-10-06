@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/extensions, import/no-unresolved
 
 // eslint-disable-next-line import/prefer-default-export
-function cardTemplate(cardData) {
+export function cardTemplate(cardData) {
   const { image, name, servings, ingredients, description, time } = cardData;
   const picture = `assets/image/${image}`;
 
@@ -62,11 +62,12 @@ function cardTemplate(cardData) {
     element.className = "card__element mt-2 ";
     ingredients.forEach((ingredient) => {
       const divIngredient = document.createElement("div");
-      // divIngredient.className = "text-center";
+
       const ingredientName = document.createElement("p");
       ingredientName.className = "ingredient__name mb-0";
       ingredientName.textContent = ingredient.ingredient;
       divIngredient.appendChild(ingredientName);
+
       const ingredientAmount = document.createElement("p");
       ingredientAmount.className = "ingredient__amount";
       ingredientAmount.textContent = `${
@@ -87,5 +88,3 @@ function cardTemplate(cardData) {
     getCreateCard,
   };
 }
-
-cardTemplate();
