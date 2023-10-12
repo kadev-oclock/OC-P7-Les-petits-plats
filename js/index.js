@@ -4,6 +4,7 @@
 import { getRecipes } from "./fetchRecipe.js";
 import { cardTemplate } from "./card.js";
 import { initInputFilter } from "./inputFilter.js";
+import { setFilterData } from "./filters.js";
 
 // eslint-disable-next-line import/prefer-default-export
 async function displayData(recipes) {
@@ -15,10 +16,10 @@ async function displayData(recipes) {
     cardSection.appendChild(createCard);
   });
 }
-
 async function init() {
   // Récupère les datas des photographes
   const { recipes } = await getRecipes();
+  setFilterData(recipes);
   displayData(recipes);
   const filters = ["ingredients", "ustensils", "appliance"];
   filters.forEach((filter) => initInputFilter(filter, recipes));

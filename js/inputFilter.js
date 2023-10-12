@@ -1,3 +1,50 @@
+const filterIngredient = (recipes, divItems, divDropdownMenu) => {
+  const inputIngredient = document.querySelector("#input-ingredients");
+  inputIngredient.addEventListener("input", () => {
+    const ingredientValue = inputIngredient.value.toLowerCase(); // Convertir en minuscules pour une recherche insensible à la casse
+
+    const divElement = document.createElement("div");
+    divElement.className = "div_items";
+
+    const items = [];
+
+    recipes.forEach((recipe) => {
+      recipe.ingredients.forEach((ingredient) => {
+        if (
+          divDropdownMenu.getAttribute("data-type") === "ingredients" &&
+          ingredient.ingredient.toLowerCase().includes(ingredientValue)
+        ) {
+          items.push(ingredient.ingredient);
+        }
+        console.log(items);
+      });
+    });
+
+    // Si l'input est vide, afficher tous les éléments
+    if (ingredientValue === "") {
+      items.length = 0;
+      recipes.forEach((recipe) => {
+        recipe.ingredients.forEach((ingredient) => {
+          items.push(ingredient.ingredient);
+        });
+      });
+    }
+
+    divElement.innerHTML = "";
+
+    items.forEach((item) => {
+      const a = document.createElement("a");
+      a.className = "dropdown-item";
+      a.innerHTML = item;
+      divElement.appendChild(a);
+    });
+    // eslint-disable-next-line no-param-reassign
+    divDropdownMenu.innerHTML = "";
+    divDropdownMenu.appendChild(divElement);
+  });
+};
+
+// eslint-disable-line import/prefer-default-export
 // eslint-disable-next-line import/prefer-default-export
 export function initInputFilter(inputName, recipes) {
   // div contenant les filtres.
@@ -6,6 +53,7 @@ export function initInputFilter(inputName, recipes) {
 
   const divDropdown = document.createElement("div");
   divDropdown.className = "dropdown";
+  divDropdownContain.setAttribute("data-type", `${inputName}`);
 
   // boutton de recherche
   const button = document.createElement("button");
@@ -23,7 +71,8 @@ export function initInputFilter(inputName, recipes) {
 
   const divDropdownMenu = document.createElement("div");
   divDropdownMenu.className = "dropdown-menu";
-  divDropdownMenu.setAttribute("aria-labelledby", `${inputName}`);
+  divDropdownMenu.setAttribute("aria-labelledby", `dropdown-${inputName}`);
+  divDropdownMenu.setAttribute("data-type", `${inputName}`);
   // menu item dropdown
   const divDropdownItem = document.createElement("div");
   divDropdownItem.className = "dropdown-item p-2";
@@ -37,6 +86,8 @@ export function initInputFilter(inputName, recipes) {
   input.setAttribute("type", "text");
   input.setAttribute("name", "search");
   input.setAttribute("placeholder", "Search..");
+  input.setAttribute("id", `input-${inputName}`);
+  input.setAttribute("data-type", `${inputName}`);
 
   // span icon
 
@@ -50,6 +101,7 @@ export function initInputFilter(inputName, recipes) {
   recipes.forEach((recipe) => {
     if (inputName === "ingredients") {
       // parcourirs les ingrédients et retourner le nom de l'ingrédient
+
       recipe.ingredients.forEach((ingredient) =>
         items.push(ingredient.ingredient)
       );
@@ -88,10 +140,20 @@ export function initInputFilter(inputName, recipes) {
     a.innerHTML = item;
     divItems.appendChild(a);
   });
+  // Initialisation de la recherche
 
   divDropdownMenu.appendChild(divItems);
   divDropdown.appendChild(button);
   divDropdown.appendChild(divDropdownMenu);
 
   divDropdownContain.appendChild(divDropdown);
+
+  // 1 fois que la page est chargé on lance la fonction event
+  if (document.readyState === "complete") {
+    filterIngredient(recipes, divItems, divDropdownMenu);
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      filterIngredient(recipes, divItems, divDropdownMenu);
+    });
+  }
 }
