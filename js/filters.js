@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-console */
 /* eslint-disable import/extensions */
@@ -7,15 +6,5 @@
 
 // 2 Initialisation des données des filtres (Ingrédients, Appareils, Ustenciles)
 
-export function setFilterData(data) {
-  const filterData = data;
-}
-
+export function setFilterData() {}
 setFilterData();
-// 4 Création de la fonction de filtre
-
-export function selectFilters() {}
-// 2 Filtre
-// 3 Renvoi des recettes filtrées
-
-selectFilters();

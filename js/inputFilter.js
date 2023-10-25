@@ -1,48 +1,94 @@
-const filterIngredient = (recipes, divItems, divDropdownMenu) => {
-  const inputIngredient = document.querySelector("#input-ingredients");
-  inputIngredient.addEventListener("input", () => {
-    const ingredientValue = inputIngredient.value.toLowerCase(); // Convertir en minuscules pour une recherche insensible à la casse
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
+// eslint-disable-next-line import/extensions
 
-    const divElement = document.createElement("div");
-    divElement.className = "div_items";
-
-    const items = [];
-
-    recipes.forEach((recipe) => {
-      recipe.ingredients.forEach((ingredient) => {
-        if (
-          divDropdownMenu.getAttribute("data-type") === "ingredients" &&
-          ingredient.ingredient.toLowerCase().includes(ingredientValue)
-        ) {
-          items.push(ingredient.ingredient);
-        }
-        console.log(items);
-      });
-    });
-
-    // Si l'input est vide, afficher tous les éléments
-    if (ingredientValue === "") {
-      items.length = 0;
-      recipes.forEach((recipe) => {
-        recipe.ingredients.forEach((ingredient) => {
-          items.push(ingredient.ingredient);
-        });
-      });
-    }
-
-    divElement.innerHTML = "";
-
-    items.forEach((item) => {
-      const a = document.createElement("a");
-      a.className = "dropdown-item";
-      a.innerHTML = item;
-      divElement.appendChild(a);
-    });
-    // eslint-disable-next-line no-param-reassign
-    divDropdownMenu.innerHTML = "";
-    divDropdownMenu.appendChild(divElement);
-  });
+export const handleClose = (input) => {
+  // 1. aller chercher l'input correspondant
+  // 2. définir la valeur de l'input = ''
+  // 3. détruire (removeChild) la div jaune et le bouton "X"
+  // 4. actualiser la liste des recettes
 };
+
+export const clickHandler = (listIngredient) => {
+  // 1.définir la valeur de l'input = listIngredient
+  // 2. créer une div jaune contenant le mot listIngredient
+  // 3. append la div jaune sous le sélecteur
+  // 4. créer un bouton "X" pour déselectionner
+  // 5. poser un écouteur sur le bouton "X" => handleClose
+};
+
+export const filtervalues = (input, values) => {
+  const filteredIngredients = values.filter((value) =>
+    value.match(new RegExp(input))
+  );
+  return filteredIngredients;
+};
+
+// cree les buttons
+function createButton(inputName) {
+  // boutton de recherche
+  const button = document.createElement("button");
+  button.setAttribute("data-bs-toggle", "dropdown");
+  Object.assign(button, {
+    className: "btn btn-secondary custom__btn dropdown-toggle",
+    type: "button",
+    id: `${inputName}`,
+    ariaExpanded: "false",
+    value: `${inputName}`,
+  });
+  button.innerHTML = `${inputName}`;
+
+  return button;
+}
+
+export function getAllingredients(recipes) {
+  const ingredients = {};
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      ingredients[ingredient.ingredient.toLowerCase()] = ingredient.ingredient;
+    });
+  });
+  return Object.keys(ingredients).sort((a, b) => a.localeCompare(b));
+}
+
+export function getAllUstensils(recipes) {
+  const ustensils = {};
+  recipes.forEach((recipe) => {
+    recipe.ustensils.forEach((ustensil) => {
+      ustensils[ustensil.toLowerCase()] = ustensil;
+    });
+  });
+  return Object.keys(ustensils).sort((a, b) => a.localeCompare(b));
+}
+
+export function getAllAppliance(recipes) {
+  const appliances = {};
+  recipes.forEach((recipe) => {
+    appliances[recipe.appliance.toLowerCase()] = recipe.appliance;
+  });
+  return Object.keys(appliances).sort((a, b) => a.localeCompare(b));
+}
+
+function createInput(inputName) {
+  const input = document.createElement("input");
+  input.className = "search form-control";
+  input.setAttribute("type", "text");
+  input.setAttribute("name", "search");
+  input.setAttribute("placeholder", "Search..");
+  input.setAttribute("id", `input-${inputName}`);
+  input.setAttribute("data-type", `${inputName}`);
+
+  return input;
+}
+
+function createDropdownMenu(inputName) {
+  const divDropdownMenu = document.createElement("div");
+  divDropdownMenu.className = "dropdown-menu";
+  divDropdownMenu.setAttribute("aria-labelledby", `dropdown-${inputName}`);
+  divDropdownMenu.setAttribute("data-type", `${inputName}`);
+
+  return divDropdownMenu;
+}
 
 // eslint-disable-line import/prefer-default-export
 // eslint-disable-next-line import/prefer-default-export
@@ -56,23 +102,11 @@ export function initInputFilter(inputName, recipes) {
   divDropdownContain.setAttribute("data-type", `${inputName}`);
 
   // boutton de recherche
-  const button = document.createElement("button");
-  button.setAttribute("data-bs-toggle", "dropdown");
-  Object.assign(button, {
-    className: "btn btn-secondary custom__btn dropdown-toggle",
-    type: "button",
-    id: `${inputName}`,
-    ariaExpanded: "false",
-    value: `${inputName}`,
-  });
-  button.innerHTML = `${inputName}`;
+  const button = createButton(inputName);
 
   // menu dropdown
 
-  const divDropdownMenu = document.createElement("div");
-  divDropdownMenu.className = "dropdown-menu";
-  divDropdownMenu.setAttribute("aria-labelledby", `dropdown-${inputName}`);
-  divDropdownMenu.setAttribute("data-type", `${inputName}`);
+  const divDropdownMenu = createDropdownMenu(inputName);
   // menu item dropdown
   const divDropdownItem = document.createElement("div");
   divDropdownItem.className = "dropdown-item p-2";
@@ -81,13 +115,7 @@ export function initInputFilter(inputName, recipes) {
 
   // menu input
 
-  const input = document.createElement("input");
-  input.className = "search form-control";
-  input.setAttribute("type", "text");
-  input.setAttribute("name", "search");
-  input.setAttribute("placeholder", "Search..");
-  input.setAttribute("id", `input-${inputName}`);
-  input.setAttribute("data-type", `${inputName}`);
+  const input = createInput(inputName);
 
   // span icon
 
@@ -95,27 +123,25 @@ export function initInputFilter(inputName, recipes) {
   spanIcon.className = "icon";
   const icon = document.createElement("i");
   icon.className = "fas fa-search";
+  icon.setAttribute("id", `icon-search-${inputName}`);
 
   // ajout des items
-  const items = [];
-  recipes.forEach((recipe) => {
-    if (inputName === "ingredients") {
-      // parcourirs les ingrédients et retourner le nom de l'ingrédient
+  let items = [];
+  let numeroIdelement = 0;
+  if (inputName === "ingredients") {
+    // parcourirs les ingrédients et retourner le nom de l'ingrédient
+    items = getAllingredients(recipes);
+  }
+  if (inputName === "appliance") {
+    // return l'appareil
+    items = getAllAppliance(recipes);
+  }
+  if (inputName === "ustensils") {
+    // parcourirs les ustensils et retourner l'ustensil
+    items = getAllUstensils(recipes);
+  }
 
-      recipe.ingredients.forEach((ingredient) =>
-        items.push(ingredient.ingredient)
-      );
-    }
-    if (inputName === "appliance") {
-      // return l'appareil
-      items.push(recipe.appliance);
-    }
-    if (inputName === "ustensils") {
-      // parcourirs les ustensils et retourner l'ustensil
-
-      recipe.ustensils.forEach((ustensil) => items.push(ustensil));
-    }
-  });
+  // faire function event
 
   // ajout data item dans le menu
 
@@ -128,6 +154,7 @@ export function initInputFilter(inputName, recipes) {
   divDropdownMenu.appendChild(divDropdownItem);
   const divItems = document.createElement("div");
   divItems.className = "div_items";
+  divItems.setAttribute("id", `list-${inputName}`);
 
   // tri des items en fonction de l'input de recherche du filtre
   // récuprère la chaine de caractère de l'input
@@ -136,24 +163,16 @@ export function initInputFilter(inputName, recipes) {
 
   items.forEach((item) => {
     const a = document.createElement("a");
-    a.className = "dropdown-item";
+    a.setAttribute("id", `tag-list-${inputName}-${numeroIdelement}`);
+    a.className = `dropdown-item item-${inputName}`;
     a.innerHTML = item;
     divItems.appendChild(a);
+    numeroIdelement += 1;
   });
   // Initialisation de la recherche
 
   divDropdownMenu.appendChild(divItems);
   divDropdown.appendChild(button);
   divDropdown.appendChild(divDropdownMenu);
-
   divDropdownContain.appendChild(divDropdown);
-
-  // 1 fois que la page est chargé on lance la fonction event
-  if (document.readyState === "complete") {
-    filterIngredient(recipes, divItems, divDropdownMenu);
-  } else {
-    document.addEventListener("DOMContentLoaded", () => {
-      filterIngredient(recipes, divItems, divDropdownMenu);
-    });
-  }
 }
