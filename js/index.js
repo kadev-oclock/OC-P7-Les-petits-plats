@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
 /* eslint-disable prefer-const */
 /* eslint-disable prefer-destructuring */
@@ -8,6 +9,7 @@
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { getRecipes } from "./fetchRecipe.js";
 import { cardTemplate } from "./card.js";
+import { createTag, tags } from "../utils/utils.js";
 import {
   initInputFilter,
   filtervalues,
@@ -21,7 +23,6 @@ import { setFilterData } from "./filters.js";
 (async () => {
   // fonction asynchrone qui encapsule le code
   const { recipes } = await getRecipes();
-  let tags = [];
 
   // eslint-disable-next-line import/prefer-default-export
   function displayData(recipes) {
@@ -48,7 +49,6 @@ import { setFilterData } from "./filters.js";
     // recupère le tag (html)
     const tagElement = document.querySelector(`#tag-${tag}`);
     if (![null, undefined].includes(tagElement)) {
-      console.log(tagElement);
       // supprime tag html
       tagElement.remove();
       // suprression tag s-dans le tableau
@@ -70,6 +70,7 @@ import { setFilterData } from "./filters.js";
         const a = document.createElement("a");
         a.className = "dropdown-item item-ingredients";
         a.innerHTML = ingredient;
+        a.addEventListener("click", (event) => createTag(event));
         listIngredients.appendChild(a);
       });
     });
@@ -87,6 +88,7 @@ import { setFilterData } from "./filters.js";
         const a = document.createElement("a");
         a.className = "dropdown-item item-ustensils";
         a.innerHTML = ingredient;
+        a.addEventListener("click", (event) => createTag(event));
         listIngredients.appendChild(a);
       });
     });
@@ -104,45 +106,15 @@ import { setFilterData } from "./filters.js";
         const a = document.createElement("a");
         a.className = "dropdown-item item-appliance";
         a.innerHTML = ingredient;
+        a.addEventListener("click", (event) => createTag(event));
         listIngredients.appendChild(a);
       });
     });
 
-  function createTag(input) {
-    // eslint-disable-next-line no-unused-vars
-    const value = input.srcElement.innerHTML;
-    const divTag = document.querySelector("#div-tag");
-    const icone = document.createElement("i");
-    divTag.innerHTML = " ";
-    tags.push(value);
-    // parcours le tableau et création des tags
-    if (tags.length > 0) {
-      tags.forEach((tag) => {
-        const tagElement = document.createElement("span");
-        tagElement.className = "badge bg-warning text-dark mx-2";
-        icone.className = "bi bi-x";
-        // ajout id avec nom du tag
-        tagElement.id = `tag-${tag}`;
-        tagElement.style.fontSize = "1em";
-        icone.addEventListener("click", () => {
-          const tagElement = document.querySelector(`#tag-${tag}`);
-          if (![null, undefined].includes(tagElement)) {
-            // supprime tag html
-            tagElement.remove();
-            // suprression tag s-dans le tableau
-            tags = tags.filter((existedTag) => existedTag !== tag);
-          }
-        });
-        tagElement.innerHTML = tag;
-        tagElement.appendChild(icone);
-        divTag.appendChild(tagElement);
-      });
-    }
-  }
-  const elements = document.querySelectorAll('[id^="tag-list"]');
-  elements.forEach((element) => {
-    element.addEventListener("click", (e) => createTag(e));
-  });
+  // const elements = document.querySelectorAll('[id^="tag-list"]');
+  // elements.forEach((element) => {
+  //   element.addEventListener("click", (e) => createTag(e));
+  // });
 
   // .addEventListener("click", (e) => createTag(e));
 })();

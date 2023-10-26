@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line import/extensions
+import { createTag } from "../utils/utils.js";
 
 export const handleClose = (input) => {
   // 1. aller chercher l'input correspondant
@@ -166,6 +167,7 @@ export function initInputFilter(inputName, recipes) {
     a.setAttribute("id", `tag-list-${inputName}-${numeroIdelement}`);
     a.className = `dropdown-item item-${inputName}`;
     a.innerHTML = item;
+    a.addEventListener("click", (event) => createTag(event));
     divItems.appendChild(a);
     numeroIdelement += 1;
   });
