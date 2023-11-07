@@ -167,7 +167,7 @@ export function initInputFilter(inputName, recipes) {
     a.setAttribute("id", `tag-list-${inputName}-${numeroIdelement}`);
     a.className = `dropdown-item item-${inputName}`;
     a.innerHTML = item;
-    a.addEventListener("click", (event) => createTag(event));
+    a.addEventListener("click", (event) => createTag(event, recipes));
     divItems.appendChild(a);
     numeroIdelement += 1;
   });

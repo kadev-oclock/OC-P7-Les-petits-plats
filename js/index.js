@@ -9,7 +9,7 @@
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { getRecipes } from "./fetchRecipe.js";
 import { cardTemplate } from "./card.js";
-import { createTag, tags } from "../utils/utils.js";
+import { createTag, tags, searchTwoStep, displayData } from "../utils/utils.js";
 import {
   initInputFilter,
   filtervalues,
@@ -24,20 +24,14 @@ import { setFilterData } from "./filters.js";
   // fonction asynchrone qui encapsule le code
   const { recipes } = await getRecipes();
 
-  // eslint-disable-next-line import/prefer-default-export
-  function displayData(recipes) {
-    const cardSection = document.getElementById("card__section");
-    recipes.forEach((recipe) => {
-      // eslint-disable-next-line no-undef
-      const cardModel = cardTemplate(recipe);
-      const createCard = cardModel.getCreateCard();
-      cardSection.appendChild(createCard);
-    });
-  }
   function init() {
     // Récupère les datas
-
-    setFilterData(recipes);
+    const filtreInput = document.getElementById("input_search");
+    filtreInput.addEventListener("keyup", () => {
+      const receipeFiltred = searchTwoStep(recipes);
+      displayData(receipeFiltred);
+    });
+    // setFilterData(recipes);
     displayData(recipes);
     const filters = ["ingredients", "ustensils", "appliance"];
     filters.forEach((filter) => initInputFilter(filter, recipes));
@@ -66,11 +60,12 @@ import { setFilterData } from "./filters.js";
         event.target.value,
         getAllingredients(recipes)
       );
-      ingredients.forEach((ingredient) => {
+      ingredients.forEach((ingredient, index) => {
         const a = document.createElement("a");
         a.className = "dropdown-item item-ingredients";
+        a.setAttribute("id", `tag-list-ingredients-${index}`);
         a.innerHTML = ingredient;
-        a.addEventListener("click", (event) => createTag(event));
+        a.addEventListener("click", (event) => createTag(event, recipes));
         listIngredients.appendChild(a);
       });
     });
@@ -84,11 +79,12 @@ import { setFilterData } from "./filters.js";
         event.target.value,
         getAllUstensils(recipes)
       );
-      ingredients.forEach((ingredient) => {
+      ingredients.forEach((ingredient, index) => {
         const a = document.createElement("a");
         a.className = "dropdown-item item-ustensils";
+        a.setAttribute("id", `tag-list-ustensils-${index}`);
         a.innerHTML = ingredient;
-        a.addEventListener("click", (event) => createTag(event));
+        a.addEventListener("click", (event) => createTag(event, recipes));
         listIngredients.appendChild(a);
       });
     });
@@ -102,19 +98,13 @@ import { setFilterData } from "./filters.js";
         event.target.value,
         getAllAppliance(recipes)
       );
-      ingredients.forEach((ingredient) => {
+      ingredients.forEach((ingredient, index) => {
         const a = document.createElement("a");
         a.className = "dropdown-item item-appliance";
+        a.setAttribute("id", `tag-list-appliance-${index}`);
         a.innerHTML = ingredient;
-        a.addEventListener("click", (event) => createTag(event));
+        a.addEventListener("click", (event) => createTag(event, recipes));
         listIngredients.appendChild(a);
       });
     });
-
-  // const elements = document.querySelectorAll('[id^="tag-list"]');
-  // elements.forEach((element) => {
-  //   element.addEventListener("click", (e) => createTag(e));
-  // });
-
-  // .addEventListener("click", (e) => createTag(e));
 })();
