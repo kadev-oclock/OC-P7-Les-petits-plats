@@ -29,7 +29,7 @@ main {
 /* =================================================================*/
 
 .hero {
-  background-image: url("/assets/image/hero.png");
+  background-image: url("../assets/image/hero.png");
   background-repeat: no-repeat;
   width: 100%;
   max-width: 1440px;
@@ -39,13 +39,13 @@ main {
 }
 
 .hero__logo {
-  background-image: url("/assets/icone/logo.svg");
+  background-image: url("../assets/icone/logo.svg");
   background-repeat: no-repeat;
   width: 210px;
   height: 25px;
 }
 .hero__circle {
-  background-image: url("/assets/icone/circle.svg");
+  background-image: url("../assets/icone/circle.svg");
   background-repeat: no-repeat;
   width: 100%;
   height: 20px;
