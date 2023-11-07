@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
 /* eslint-disable import/extensions */
 /* eslint-disable prefer-const */
 /* eslint-disable no-use-before-define */
@@ -98,26 +100,38 @@ function filterByInput(recipes) {
   return filtred;
 }
 
+/**
+ * The function `filterByTag` filters an array of recipes based on a given tag.
+ * @param recipes - An array of recipe objects. Each recipe object has the following properties:
+ * @param tag - The `tag` parameter is an object that represents the tag to filter the recipes by. It
+ * has two properties:
+ * @returns a filtered array of recipes that match the specified tag.
+ */
 function filterByTag(recipes, tag) {
   // Créez une copie du tableau de recettes pour éviter de modifier l'original
   let filtered = [...recipes];
 
   // Utilisez la méthode filter() pour filtrer les recettes
-  filtered = filtered.filter(
-    (recipe) =>
-      // Vérifiez si le tag est présent dans les ingrédients, les ustensiles ou l'appareil
-      recipe.ingredients.some((ingredient) =>
-        ingredient.ingredient.toLowerCase().includes(tag.value)
-      ) ||
-      recipe.ustensils.some((ustensil) =>
-        ustensil.toLowerCase().includes(tag.value)
-      ) ||
-      recipe.appliance.toLowerCase().includes(tag.value)
-  );
+  filtered = filtered.filter((recipe) => {
+    // Vérifiez si le tag est présent dans les ingrédients, les ustensiles ou l'appareil
+    if (tag.type === "ingredients") {
+      return recipe.ingredients.some(
+        (ingredient) =>
+          ingredient.ingredient.toLowerCase() === tag.value.toLowerCase()
+      );
+    }
+    if (tag.type === "ustensils") {
+      return recipe.ustensils.some(
+        (ustensil) => ustensil.toLowerCase() === tag.value.toLowerCase()
+      );
+    }
+    if (tag.type === "appliance") {
+      return recipe.appliance.toLowerCase() === tag.value.toLowerCase();
+    }
+  });
 
   return filtered;
 }
-
 // eslint-disable-next-line import/prefer-default-export
 export function displayData(recipes) {
   const cardSection = document.getElementById("card__section");
