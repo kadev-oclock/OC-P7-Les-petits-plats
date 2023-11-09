@@ -13,12 +13,12 @@ export let tags = [];
 export function createTag(input, recipes) {
   // eslint-disable-next-line no-unused-vars
   const value = input.srcElement.innerHTML;
+  const tagType = input.srcElement.id.split("-")[2];
   const indexTag = tags.findIndex(
-    (tag) =>
-      tag.type === input.srcElement.id.split("-")[2] && tag.value === value
+    (tag) => tag.type === tagType && tag.value === value
   );
   if (indexTag === -1) {
-    tags.push({ type: input.srcElement.id.split("-")[2], value });
+    tags.push({ type: tagType, value });
     const receipeFiltred = searchTwoStep(recipes);
     displayData(receipeFiltred);
     afficheTag(recipes);
@@ -53,7 +53,6 @@ function afficheTag(recipes) {
             tag.type === tagElement.id.split("-")[1] &&
             tag.value === tagElement.id.split("-")[2]
         );
-        console.log(tag);
         if (indexTag !== -1) {
           tags.splice(indexTag, 1);
           const receipeFiltred = searchTwoStep(recipes);
@@ -112,6 +111,7 @@ function filterByTag(recipes, tag) {
   let filtered = [...recipes];
 
   // Utilisez la méthode filter() pour filtrer les recettes
+
   filtered = filtered.filter((recipe) => {
     // Vérifiez si le tag est présent dans les ingrédients, les ustensiles ou l'appareil
     if (tag.type === "ingredients") {
