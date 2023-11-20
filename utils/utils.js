@@ -107,17 +107,21 @@ export function searchTwoStep(recipes) {
   majFiltreUstensils(recipeFilterTags)(e);
   return recipeFilterTags;
 }
-// filtre dans la saisie
+// filtre dans la saisie algo 2bis
 function filterByInput(recipes) {
-  let filtred = [...recipes];
+  let filtred = [];
   const filtreInput = document.getElementById("input_search");
   // code pour filtrer
-  filtred = filtred.filter(
-    (recipe) =>
+  for (let i = 0; i < recipes.length; i += 1) {
+    let recipe = recipes[i];
+    if (
       // i = insensible à la casse
       recipe.name.match(new RegExp(filtreInput.value, "i")) ||
       recipe.description.match(new RegExp(filtreInput.value, "i"))
-  );
+    ) {
+      filtred.push(recipe);
+    }
+  }
 
   return filtred;
 }
