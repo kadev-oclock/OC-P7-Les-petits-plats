@@ -9,7 +9,15 @@
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { getRecipes } from "./fetchRecipe.js";
 import { cardTemplate } from "./card.js";
-import { createTag, tags, searchTwoStep, displayData } from "../utils/utils.js";
+import {
+  createTag,
+  tags,
+  searchTwoStep,
+  displayData,
+  majFiltreIngredient,
+  majFiltreUstensils,
+  majFiltreAppareils,
+} from "../utils/utils.js";
 import {
   initInputFilter,
   filtervalues,
@@ -23,13 +31,13 @@ import { setFilterData } from "./filters.js";
 (async () => {
   // fonction asynchrone qui encapsule le code
   const { recipes } = await getRecipes();
-
+  let recipeFiltred = [];
   function init() {
     // Récupère les datas
     const filtreInput = document.getElementById("input_search");
     filtreInput.addEventListener("keyup", () => {
-      const receipeFiltred = searchTwoStep(recipes);
-      displayData(receipeFiltred);
+      recipeFiltred = searchTwoStep(recipes);
+      displayData(recipeFiltred);
     });
     // setFilterData(recipes);
     displayData(recipes);
@@ -52,59 +60,11 @@ import { setFilterData } from "./filters.js";
 
   document
     .querySelector("#input-ingredients")
-    .addEventListener("input", (event) => {
-      const listIngredients = document.querySelector("#list-ingredients");
-      // vide de ligne list
-      listIngredients.innerHTML = " ";
-      const ingredients = filtervalues(
-        event.target.value,
-        getAllingredients(recipes)
-      );
-      ingredients.forEach((ingredient, index) => {
-        const a = document.createElement("a");
-        a.className = "dropdown-item item-ingredients";
-        a.setAttribute("id", `tag-list-ingredients-${index}`);
-        a.innerHTML = ingredient;
-        a.addEventListener("click", (event) => createTag(event, recipes));
-        listIngredients.appendChild(a);
-      });
-    });
+    .addEventListener("input", majFiltreIngredient(recipeFiltred));
   document
     .querySelector("#input-ustensils")
-    .addEventListener("input", (event) => {
-      const listIngredients = document.querySelector("#list-ustensils");
-      // vide de ligne list
-      listIngredients.innerHTML = " ";
-      const ingredients = filtervalues(
-        event.target.value,
-        getAllUstensils(recipes)
-      );
-      ingredients.forEach((ingredient, index) => {
-        const a = document.createElement("a");
-        a.className = "dropdown-item item-ustensils";
-        a.setAttribute("id", `tag-list-ustensils-${index}`);
-        a.innerHTML = ingredient;
-        a.addEventListener("click", (event) => createTag(event, recipes));
-        listIngredients.appendChild(a);
-      });
-    });
+    .addEventListener("input", majFiltreUstensils(recipeFiltred));
   document
     .querySelector("#input-appliance")
-    .addEventListener("input", (event) => {
-      const listIngredients = document.querySelector("#list-appliance");
-      // vide de ligne list
-      listIngredients.innerHTML = " ";
-      const ingredients = filtervalues(
-        event.target.value,
-        getAllAppliance(recipes)
-      );
-      ingredients.forEach((ingredient, index) => {
-        const a = document.createElement("a");
-        a.className = "dropdown-item item-appliance";
-        a.setAttribute("id", `tag-list-appliance-${index}`);
-        a.innerHTML = ingredient;
-        a.addEventListener("click", (event) => createTag(event, recipes));
-        listIngredients.appendChild(a);
-      });
-    });
+    .addEventListener("input", majFiltreAppareils(recipeFiltred));
 })();
