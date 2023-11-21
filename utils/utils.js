@@ -8,6 +8,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable import/no-mutable-exports */
+import { getRecipes } from "../js/fetchRecipe.js";
 import { cardTemplate } from "../js/card.js";
 // eslint-disable-next-line import/no-cycle
 import {
@@ -20,7 +21,7 @@ import {
 export let tags = [];
 // eslint-disable-next-line import/prefer-default-export
 
-export function createTag(input, recipes) {
+export async function createTag(input, recipes) {
   // eslint-disable-next-line no-unused-vars
   const value = input.srcElement.innerHTML;
   const tagType = input.srcElement.id.split("-")[2];
@@ -29,9 +30,10 @@ export function createTag(input, recipes) {
   );
   if (indexTag === -1) {
     tags.push({ type: tagType, value });
-    const receipeFiltred = searchTwoStep(recipes);
+    const receipeFiltred = await searchTwoStep(recipes);
     displayData(receipeFiltred);
     afficheTag(recipes);
+    // console.log(recipes);
   }
 }
 
@@ -57,7 +59,7 @@ function afficheTag(recipes) {
       // ajout id avec nom du tag
       tagElement.id = `tag-${tag.type}-${tag.value}`;
       tagElement.style.fontSize = "1em";
-      icone.addEventListener("click", () => {
+      icone.addEventListener("click", async () => {
         const indexTag = tags.findIndex(
           (tag) =>
             tag.type === tagElement.id.split("-")[1] &&
@@ -65,7 +67,7 @@ function afficheTag(recipes) {
         );
         if (indexTag !== -1) {
           tags.splice(indexTag, 1);
-          const receipeFiltred = searchTwoStep(recipes);
+          const receipeFiltred = await searchTwoStep(recipes);
           displayData(receipeFiltred);
           afficheTag(recipes);
         }
@@ -77,10 +79,11 @@ function afficheTag(recipes) {
   }
 }
 
-export function searchTwoStep(recipes) {
+export async function searchTwoStep() {
   let recipeFilterInput;
   let recipeFilterTags;
   const filtreInput = document.getElementById("input_search");
+  const { recipes } = await getRecipes();
   // phase 1 algo
   if (filtreInput.value.length >= 3) {
     recipeFilterInput = filterByInput(recipes);
@@ -89,6 +92,7 @@ export function searchTwoStep(recipes) {
   }
   // phase 2 algo
   recipeFilterTags = [...recipeFilterInput];
+
   for (let i = 0; i < tags.length; i += 1) {
     recipeFilterTags = filterByTag(recipeFilterTags, tags[i]);
   }
@@ -176,12 +180,19 @@ export function majFiltreIngredient(recipeFiltred) {
       getAllingredients(recipeFiltred)
     );
     ingredients.forEach((ingredient, index) => {
-      const a = document.createElement("a");
-      a.className = "dropdown-item item-ingredients";
-      a.setAttribute("id", `tag-list-ingredients-${index}`);
-      a.innerHTML = ingredient;
-      a.addEventListener("click", (event) => createTag(event, recipeFiltred));
-      listIngredients.appendChild(a);
+      if (
+        !tags.some(
+          (tag) => tag.type === "ingredients" && tag.value === ingredient
+        )
+      ) {
+        // console.log(ingredient);
+        const a = document.createElement("a");
+        a.className = "dropdown-item item-ingredients";
+        a.setAttribute("id", `tag-list-ingredients-${index}`);
+        a.innerHTML = ingredient;
+        a.addEventListener("click", (event) => createTag(event, recipeFiltred));
+        listIngredients.appendChild(a);
+      }
     });
   };
 }
@@ -196,12 +207,18 @@ export function majFiltreUstensils(recipeFiltred) {
       getAllUstensils(recipeFiltred)
     );
     ingredients.forEach((ingredient, index) => {
-      const a = document.createElement("a");
-      a.className = "dropdown-item item-ustensils";
-      a.setAttribute("id", `tag-list-ustensils-${index}`);
-      a.innerHTML = ingredient;
-      a.addEventListener("click", (event) => createTag(event, recipeFiltred));
-      listIngredients.appendChild(a);
+      if (
+        !tags.some(
+          (tag) => tag.type === "ustensils" && tag.value === ingredient
+        )
+      ) {
+        const a = document.createElement("a");
+        a.className = "dropdown-item item-ustensils";
+        a.setAttribute("id", `tag-list-ustensils-${index}`);
+        a.innerHTML = ingredient;
+        a.addEventListener("click", (event) => createTag(event, recipeFiltred));
+        listIngredients.appendChild(a);
+      }
     });
   };
 }
@@ -216,12 +233,18 @@ export function majFiltreAppareils(recipeFiltred) {
       getAllAppliance(recipeFiltred)
     );
     ingredients.forEach((ingredient, index) => {
-      const a = document.createElement("a");
-      a.className = "dropdown-item item-appliance";
-      a.setAttribute("id", `tag-list-appliance-${index}`);
-      a.innerHTML = ingredient;
-      a.addEventListener("click", (event) => createTag(event, recipeFiltred));
-      listIngredients.appendChild(a);
+      if (
+        !tags.some(
+          (tag) => tag.type === "appliance" && tag.value === ingredient
+        )
+      ) {
+        const a = document.createElement("a");
+        a.className = "dropdown-item item-appliance";
+        a.setAttribute("id", `tag-list-appliance-${index}`);
+        a.innerHTML = ingredient;
+        a.addEventListener("click", (event) => createTag(event, recipeFiltred));
+        listIngredients.appendChild(a);
+      }
     });
   };
 }

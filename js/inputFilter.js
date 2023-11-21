@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import/extensions, import/no-cycle
 import { createTag } from "../utils/utils.js";
 
 export const handleClose = (input) => {

@@ -32,11 +32,11 @@ import { setFilterData } from "./filters.js";
   // fonction asynchrone qui encapsule le code
   const { recipes } = await getRecipes();
   let recipeFiltred = [];
-  function init() {
+  async function init() {
     // Récupère les datas
     const filtreInput = document.getElementById("input_search");
-    filtreInput.addEventListener("keyup", () => {
-      recipeFiltred = searchTwoStep(recipes);
+    filtreInput.addEventListener("keyup", async () => {
+      recipeFiltred = await searchTwoStep(recipes);
       displayData(recipeFiltred);
     });
     // setFilterData(recipes);
